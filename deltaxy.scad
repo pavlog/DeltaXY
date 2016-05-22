@@ -583,12 +583,17 @@ module SlideBlockClampB(partIndex)
 }
 SlideBlockClampB(-1);
 
-module StepperAndEndStopper()
+module StepperAndEndStopper(partIndex)
 {
+			holeDist = lookup(NemaDistanceBetweenMountingHoles, Nema17) * 0.5;
+
 translate([ArmAXReal,20,-25-10-2])
 {
-		translate([16,0,0]) rotate([0,90,0]) rotate([0,0,0]) Nema17_shaft24_Stepper(NemaSize=NemaLengthShort);
-		translate([+9.5,0,0]) rotate([0,-90,0]) rotate([0,0,0]) GT2_16_Pulley();
+		if( partIndex==-1 )
+		{
+			translate([16,0,0]) rotate([0,90,0]) rotate([0,0,0]) Nema17_shaft24_Stepper(NemaSize=NemaLengthShort);
+			translate([+9.5,0,0]) rotate([0,-90,0]) rotate([0,0,0]) GT2_16_Pulley();
+		}
 		difference()
 		{
 		translate([0,0,-21])
@@ -596,37 +601,124 @@ translate([ArmAXReal,20,-25-10-2])
 		color("blue") 
 		union()
 		{
-		translate([17,-21,0]) mirror([1,0,0]) cube([5,42,42]);
-		translate([17,-21,0]) mirror([1,0,0]) cube([28,9,42]);
+			if( partIndex==-1 || partIndex==1 )
+			{
+			hull()
+			{
+				translate([17,holeDist,+21-holeDist]) rotate([0,-90,0]) cylinder(d=11,h=4,$fn=32);
+				translate([17,holeDist,+21+holeDist]) rotate([0,-90,0]) cylinder(d=11,h=4,$fn=32);
+				translate([17,-holeDist,+21+holeDist]) rotate([0,-90,0]) cylinder(d=11,h=4,$fn=32);
+				translate([17,-holeDist,+21-holeDist]) rotate([0,-90,0]) cylinder(d=11,h=4,$fn=32);
+			}
+			//translate([17,-21,0]) mirror([1,0,0]) cube([4,42,42]);
+			hull()
+			{
+		translate([17,-21+5,42+3]) mirror([1,0,0]) rotate([0,90,0])  cylinder(d=10,h=4);
+		translate([17,-21+5,40-4]) mirror([1,0,0]) rotate([0,90,0])  cylinder(d=10,h=4);
+		translate([17,-21+11,40]) mirror([1,0,0]) rotate([0,90,0])  cylinder(d=9,h=4);
+
+		translate([17,-21+5,-3]) mirror([1,0,0]) rotate([0,90,0])  cylinder(d=10,h=4);
+		translate([17,-21+5,2]) mirror([1,0,0]) rotate([0,90,0])  cylinder(d=10,h=4);
+		translate([17,-21+11,2]) mirror([1,0,0]) rotate([0,90,0])  cylinder(d=9,h=4);
+
+			}
+		}
+			if( partIndex==-1 || partIndex==2 )
+			{
+				translate([17-4,-21,0]) mirror([1,0,0]) cube([28-4,8,42]);
+				translate([17-4,-18.5,42-3]) mirror([1,0,0]) cube([28-4,9,3]);
+				translate([17-4,-18.5+2,42-6]) mirror([1,0,0]) cube([28-4,10,2]);
+			translate([17-4,-18,42-11]) rotate([20,0,0]) translate([0,2,-0.5]) mirror([1,0,0]) cube([28-4,9,6]);
+			}
+		}
+	}
+		translate([16,0,0]) rotate([0,90,0]) rotate([0,0,0]) Nema17_shaft24_Stepper(1);
+		translate([-6/2-3,-holeDist-1,-100]) rotate([0,0,90]) cylinder(d=3,h=200,$fn=32);
+		translate([6/2+3,-holeDist-1,-100]) rotate([0,0,90]) cylinder(d=3,h=200,$fn=32);
+	//
+		translate([10,-holeDist,-holeDist]) rotate([0,-90,0]) cylinder(d=6.5,h=50,$fn=32);
+		translate([10,-holeDist,+holeDist]) rotate([0,-90,0]) cylinder(d=3,h=50,$fn=32);
+		translate([13,-21.1,-22]) mirror([1,0,0]) cube([28.2,9,33]);
+translate([-8+3,-3,15])
+{
+	rotate([20,180,180]) EndSwitchBody20x11(1);
+		rotate([20,0,0]) translate([20,-15,-20]) mirror([1,0,0]) translate([0,0,8]) cube([23,18,12]);
+}
+	hull()
+{
+	translate([12.9,0,0]) rotate([0,90,0]) cylinder(d=23,h=5.1);
+	//translate([12.9,0,0]) rotate([0,90,0]) cylinder(d=23,h=5.1);
+}
+		translate([50,-21+4,42/2+3]) mirror([1,0,0]) rotate([0,90,0])  cylinder(d=3,h=200,$fn=16);
+		translate([50,-21+4,-42/2-3]) mirror([1,0,0]) rotate([0,90,0])  cylinder(d=3,h=200,$fn=16);
+		//#translate([50,-21+4,42/2+3]) mirror([1,0,0]) rotate([0,90,0])  cylinder(d=7,h=200,$fn=6);
+
+	}
+translate([-8+3,-3,15])
+{
+		if( partIndex==-1 )
+		{
+	rotate([20,180,180]) EndSwitchBody20x11();
+		}
+}
+}
+
+/*
+module StepperAndEndStopper(partIndex)
+{
+translate([ArmAXReal,20,-25-10-2])
+{
+		if( partIndex==-1 )
+		{
+		translate([16,0,0]) rotate([0,90,0]) rotate([0,0,0]) Nema17_shaft24_Stepper(NemaSize=NemaLengthShort);
+		translate([+9.5,0,0]) rotate([0,-90,0]) rotate([0,0,0]) GT2_16_Pulley();
+		}
+		difference()
+		{
+		translate([0,0,-21])
+	{
+		color("blue") 
+		union()
+		{
+		translate([17,-21,0]) mirror([1,0,0]) cube([4,42,42]);
+		translate([17,-21,0]) mirror([1,0,0]) cube([28,8,42]);
 		translate([17,-18.5,42-3]) mirror([1,0,0]) cube([28,9,3]);
 		//#translate([17,-18.5+2,42-6]) mirror([1,0,0]) cube([28,10,2]);
 		translate([17,-18,42-11]) rotate([20,0,0]) translate([0,2,-0.5]) mirror([1,0,0]) cube([28,9,6]);
 		}
 	}
 		translate([16,0,0]) rotate([0,90,0]) rotate([0,0,0]) Nema17_shaft24_Stepper(1);
-		translate([-6/2-3,-holeDist-1,-100]) rotate([0,0,90]) cylinder(d=4,h=200,$fn=32);
-		translate([6/2+3,-holeDist-1,-100]) rotate([0,0,90]) cylinder(d=4,h=200,$fn=32);
+		translate([-6/2-3,-holeDist-2,-100]) rotate([0,0,90]) cylinder(d=3,h=200,$fn=32);
+		translate([6/2+3,-holeDist-2,-100]) rotate([0,0,90]) cylinder(d=3,h=200,$fn=32);
 	//
 		holeDist = lookup(NemaDistanceBetweenMountingHoles, Nema17) * 0.5;
-		translate([11,-holeDist,-holeDist]) rotate([0,-90,0]) cylinder(d=6.5,h=50,$fn=32);
-		translate([11,-holeDist,+holeDist]) rotate([0,-90,0]) cylinder(d=6.5,h=50,$fn=32);
+		translate([10,-holeDist,-holeDist]) rotate([0,-90,0]) cylinder(d=6.5,h=50,$fn=32);
+		translate([10,-holeDist,+holeDist]) rotate([0,-90,0]) cylinder(d=6.5,h=50,$fn=32);
+		translate([10,-21.1,-22]) mirror([1,0,0]) cube([28.2,9,10]);
 translate([-8+3,-3,15])
 {
 	rotate([20,180,180]) EndSwitchBody20x11(1);
 		rotate([20,0,0]) translate([20,-15,-20]) mirror([1,0,0]) translate([0,0,8]) cube([23,18,12]);
 }
-	translate([7,0,0]) rotate([0,90,0]) cylinder(d=23,h=10);
+	hull()
+{
+	translate([12.9,0,0]) rotate([0,90,0]) cylinder(d=23,h=5.1);
+	//translate([12.9,0,0]) rotate([0,90,0]) cylinder(d=23,h=5.1);
+}
 	}
 translate([-8+3,-3,15])
 {
+		if( partIndex==-1 )
+		{
 	rotate([20,180,180]) EndSwitchBody20x11();
+		}
 }
 }
-
+*/
 //translate([ArmAXReal+9,19+6-5,-29])
 //{
 //	rotate([-20,0,180]) EndSwitchBody20x11();
 //}
 }
-!StepperAndEndStopper();
-mirror() StepperAndEndStopper();
+StepperAndEndStopper(-1);
+mirror() StepperAndEndStopper(-1);
