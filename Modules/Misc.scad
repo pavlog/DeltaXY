@@ -131,6 +131,23 @@ module GT2_20_Pulley(hole=8)
     }
 }
 
+module GT2_16_Idler(hole=3)
+{
+    difference()
+    {
+        union()
+        {
+            cylinder(d=10,h=9);
+            cylinder(d=13,h=1);
+            translate([0,0,8]) cylinder(d=13,h=1);
+        }
+        translate([0,0,-0.1]) cylinder(d=hole,h=14.2);
+    }
+}
+
+
+
+
 
 module cubeRoundedXY(size,r=1,fn=16,corners=[1,1,1,1])
 {
