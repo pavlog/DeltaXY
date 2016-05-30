@@ -28,8 +28,9 @@ DIM_TEXT_RENDER = 1;
 animY = abs(sin($t*180))*100;
 animX = cos($t*180*4)*50;
 
-animX = 0;
-animY = 0;
+animX = 50;
+animY = 85;
+// 85 seems to be max
 //echo(animY);
 echo(animX);
 Target_X = 0+animX;
@@ -174,8 +175,8 @@ if( bDrawHotEnd )
 	translate([Target_X,Target_Y,HotEndZ]) rotate([180,0,180]) heatsinkE3DV6Short();
 }
 
-translate([ArmAX,0,0]) rotate([-90,0,0])cylinder(d=1,h=RodsLen);
-translate([ArmBX,0,0]) rotate([-90,0,0])cylinder(d=1,h=RodsLen);
+//translate([ArmAX,0,0]) rotate([-90,0,0])cylinder(d=1,h=RodsLen);
+//translate([ArmBX,0,0]) rotate([-90,0,0])cylinder(d=1,h=RodsLen);
 
 color("gray")
 {
@@ -566,6 +567,24 @@ module SlideBlockClampParam(partIndex,ArmXReal,ArmX,Y,angle,dir)
 					SliderArmParamsHoles(ArmXReal,ArmX,Y,angle,dir);
 				}
 			}
+			if( partIndex==-1 || partIndex==3 )
+			{
+				difference()
+				{
+					color("magenta") 
+					union()
+					{
+						//translate([ArmXReal-BearingLM6UUDiameter()/2-3-2,Y+RodsBottom-2,-blockH+3]) cubeRoundedXY([BearingLM6UUDiameter()+10,BearingLM6UUHeight()*2+4,3],r=4,corners=[1,1,1,1]);
+						//hull()
+						//{
+					translate([ArmXReal-BearingLM6UUDiameter()/2-3-2,Y+RodsBottom-2+11+2.5,-blockH-9-4]) cubeRoundedXY([BearingLM6UUDiameter()+10,15,5],r=4,corners=[1,1,1,1]);
+				//			translate([ArmXReal-BearingLM6UUDiameter()/2-3-2,Y+RodsBottom-2+11-1.5,-blockH-9+12]) cubeRoundedXY([BearingLM6UUDiameter()+10,23,1],r=4,corners=[1,1,1,1]);
+						//}
+					}
+					color("red") translate([ArmXReal-BearingLM6UUDiameter()/2+2,Y+RodsBottom-2+19.75,-blockH-9-5]) cube([8,2.5,20]);
+					SliderArmParamsHoles(ArmXReal,ArmX,Y,angle,dir);
+				}
+			}
 		}
 	}
 }
@@ -674,7 +693,7 @@ module StepperAndEndStopper(partIndex)
 						}
 						if( partIndex==-1 || partIndex==6 )
 						{
-							color("blue") 
+							color("magenta") 
 							{
 								translate([17-4,-21,42+8]) mirror([1,0,0]) cube([28-4,11,2]);
 							}
@@ -691,7 +710,7 @@ module StepperAndEndStopper(partIndex)
 				//#translate([8,-21.1,10]) rotate([90,0,0]) cylinder(d=10,h=20);
 				translate([-8+2,-3,15])
 				{
-					if( partIndex!=3 && partIndex!=4 && partIndex!=5 && partIndex!=6 )
+					if( partIndex!=3 && partIndex!=4 && partIndex!=5 && partIndex!=6 && partIndex!=7 )
 					{
 						rotate([20,180,180]) EndSwitchBody20x11(1);
 					}
@@ -703,7 +722,7 @@ module StepperAndEndStopper(partIndex)
 					//translate([12.9,0,0]) rotate([0,90,0]) cylinder(d=23,h=5.1);
 				}
 				translate([50,-21+7.5,42/2+3]) mirror([1,0,0]) rotate([0,90,0])  cylinder(d=3,h=200,$fn=16);
-				#translate([50,21+3.5,42/2-5]) mirror([1,0,0]) rotate([0,90,0])  cylinder(d=3,h=200,$fn=16);
+				translate([50,21+3.5,42/2-5]) mirror([1,0,0]) rotate([0,90,0])  cylinder(d=3,h=200,$fn=16);
 				translate([50,-21+7.5,-42/2-3]) mirror([1,0,0]) rotate([0,90,0])  cylinder(d=3,h=200,$fn=16);
 				translate([50,14,-42/2-3]) mirror([1,0,0]) rotate([0,90,0])  cylinder(d=3,h=200,$fn=16);
 				//#translate([50,-21+4,42/2+3]) mirror([1,0,0]) rotate([0,90,0])  cylinder(d=7,h=200,$fn=6);
@@ -721,7 +740,152 @@ module StepperAndEndStopper(partIndex)
 }
 // part 6 is just a spacer if needed
 StepperAndEndStopper(-1);
-!mirror() StepperAndEndStopper(6);
+mirror() StepperAndEndStopper(-1);
+
+module Idler(partIndex)
+{
+	holeDist = lookup(NemaDistanceBetweenMountingHoles, Nema17) * 0.5;
+	difference()
+	{
+		translate([ArmAXReal,RodsBottom+RodsLen+10+1,-25-10-2])
+		{
+			if( partIndex==-1 )
+			{
+				color("red") translate([+4.5,-30,0]) rotate([0,-90,0]) rotate([0,0,0]) GT2_16_Idler(3);
+			}
+
+			difference()
+			{
+				translate([0,0,-21])
+				{
+					union()
+					{
+						if( partIndex==-1 || partIndex==1 )
+						{
+							color("orange") 
+							{
+								translate([-11,-21,4]) cube([22,11,38]);
+							}
+						}
+						if( partIndex==-1 || partIndex==2 )
+						{
+							color("green") 
+							{
+								translate([-11,-21,42]) cube([22,11,8]);
+							}
+						}
+						if( partIndex==-1 || partIndex==3 )
+						{
+							color("blue") 
+							{
+								translate([-11,-21,42+8]) cube([22,11,8]);
+							}
+						}
+						if( partIndex==-1 || partIndex==4 )
+						{
+							color("red") 
+							{
+								translate([-11,-21,42+16]) cube([22,11,8]);
+							}
+						}
+						if( partIndex==-1 || partIndex==5 )
+						{
+							color("magenta") 
+							{
+								translate([-11,-21,42+8]) cube([22,11,2]);
+							}
+						}
+					}
+				}
+				// vert holes
+				translate([-6/2-3,-holeDist-1,-100]) rotate([0,0,90]) cylinder(d=3,h=200,$fn=32);
+				translate([6/2+3,-holeDist-1,-100]) rotate([0,0,90]) cylinder(d=3,h=200,$fn=32);
+				// horz hole
+				translate([50,-21+7.5,42/2+3]) mirror([1,0,0]) rotate([0,90,0])  cylinder(d=3,h=200,$fn=16);
+				translate([50,-21+7.5,-12]) mirror([1,0,0]) rotate([0,90,0])  cylinder(d=3,h=200,$fn=16);
+				//translate([50,-21+7.5,-42/2-3]) mirror([1,0,0]) rotate([0,90,0])  cylinder(d=3,h=200,$fn=16);
+				//
+				translate([0,0,-9]) rotate([90,0,0])  cylinder(d=3,h=250,$fn=16);
+				//#translate([-4.5-2,0,0]) rotate([90,0,0])  cylinder(d=3,h=50,$fn=16);
+				translate([0,0,9]) rotate([90,0,0])  cylinder(d=3,h=50,$fn=16);
+				//#translate([-4.5-2,0,10]) rotate([90,0,0])  cylinder(d=3,h=50,$fn=16);
+				//
+
+			}
+		}
+		translate([ArmAXReal,RodsBottom-0.5,0]) rotate([-90,0,0])cylinder(d=6,h=RodsLen,$fn=32);
+	}
+}
+// part 6 is just a spacer if needed
+Idler(-1);
+mirror() Idler(-1);
+
+module IdlerStepper(partIndex)
+{
+	holeDist = lookup(NemaDistanceBetweenMountingHoles, Nema17) * 0.5;
+	difference()
+	{
+		translate([ArmAXReal,20,-25-10-2])
+		{
+			difference()
+			{
+				translate([0,0,-21])
+				{
+					union()
+					{
+						if( partIndex==-1 || partIndex==1 )
+						{
+							color("magenta") 
+							{
+								difference()
+								{
+									translate([-11,-21,4]) cube([19,11,28]);
+									//translate([-3,-20,15]) cube([16,10,20]);
+									translate([-7,-19.5,24]) cube([16,10,20]);
+									//#translate([7,-19.5,4]) cube([16,7,20]);
+								}
+							}
+						}
+						if( partIndex==-1 || partIndex==2 )
+						{
+							color("green") 
+							{
+								difference()
+								{
+									translate([-11,-21,-26]) cube([22,11,30]);
+									//translate([-3,-20,15]) cube([16,10,20]);
+									translate([9,-19.5,-4]) cube([7,10,8]);
+									//#translate([7,-19.5,4]) cube([16,7,20]);
+								}
+							}
+						}
+					}
+				}
+				// vert holes
+				translate([-6/2-3,-holeDist-1,-100]) rotate([0,0,90]) cylinder(d=3,h=200,$fn=32);
+				translate([-6/2-3,-holeDist-1,-20]) rotate([0,0,30])  rotate([0,0,90]) cylinder(d=7,h=31,$fn=6);
+				translate([6/2+3,-holeDist-1,-100]) rotate([0,0,90]) cylinder(d=3,h=200,$fn=32);
+				translate([6/2+3,-holeDist-1,-20]) rotate([0,0,30])  rotate([0,0,90]) cylinder(d=7,h=31,$fn=6);
+				translate([-6/2-3,-holeDist-1,8]) rotate([0,0,90]) cylinder(d=7,h=200,$fn=6);
+				// horz hole
+				translate([50,-21+7.5,42/2+3]) mirror([1,0,0]) rotate([0,90,0])  cylinder(d=3,h=200,$fn=16);
+				//#translate([50,-21+7.5,-12]) mirror([1,0,0]) rotate([0,90,0])  cylinder(d=3,h=200,$fn=16);
+				//translate([50,-21+7.5,-42/2-3]) mirror([1,0,0]) rotate([0,90,0])  cylinder(d=3,h=200,$fn=16);
+				//
+				translate([0,0,-9]) rotate([90,0,0])  cylinder(d=3,h=50,$fn=16);
+				//#translate([-4.5-2,0,0]) rotate([90,0,0])  cylinder(d=3,h=50,$fn=16);
+				//translate([0,0,9]) rotate([90,0,0])  cylinder(d=3,h=50,$fn=16);
+				//#translate([-4.5-2,0,10]) rotate([90,0,0])  cylinder(d=3,h=50,$fn=16);
+				//
+
+			}
+		}
+		translate([ArmAXReal,RodsBottom-0.5,0]) rotate([-90,0,0])cylinder(d=6,h=RodsLen,$fn=32);
+	}
+}
+// part 6 is just a spacer if needed
+IdlerStepper(-1);
+mirror() IdlerStepper(-1);
 
 translate([0,-10,-20])
 {
@@ -732,7 +896,9 @@ translate([0,50,-130]) rotate([90,0,0]) Nema17_shaft24_Stepper(NemaSize=NemaLeng
 color("blue") translate([0,-10,-180]) cylinder(d=3,h=190);
 color("green") translate([0,80,-200+50]) cylinder(d=3,h=100);
 
-translate([-20,45,-98]) mirror([0,1,0]) rotate([90,0,180]) RAMPS();
+//translate([-15,35,-110]) mirror([0,1,0]) rotate([0,90,0]) rotate([0,0,0]) RAMPS();
+
+//translate([-20,45,-98]) mirror([0,1,0]) rotate([90,0,180]) RAMPS();
 
 zRodsX = 35;
 
@@ -748,6 +914,6 @@ translate([-zRodsX,55,-175+26]) rotate([90,0,0]) SCS6UU();
 translate([-zRodsX,55,-175]) rotate([90,0,0]) SCS6UU();
 }
 
-translate([ArmBXReal-15,0,-180]) cube([30,94,93]);
+//translate([ArmBXReal-15,0,-180]) cube([30,94,93]);
 
 
