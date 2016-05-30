@@ -795,11 +795,20 @@ module Idler(partIndex)
 								translate([-11,-21,42+8]) cube([22,11,2]);
 							}
 						}
+						if( partIndex==-1 || partIndex==6 )
+						{
+							color("magenta") 
+							{
+								translate([-11,-21,-26]) cube([22,11,30]);
+							}
+						}
 					}
 				}
 				// vert holes
 				translate([-6/2-3,-holeDist-1,-100]) rotate([0,0,90]) cylinder(d=3,h=200,$fn=32);
 				translate([6/2+3,-holeDist-1,-100]) rotate([0,0,90]) cylinder(d=3,h=200,$fn=32);
+				translate([-6/2-3,-holeDist-1,-16-4]) rotate([0,0,90]) cylinder(d=7,h=3.1,$fn=6);
+				translate([6/2+3,-holeDist-1,-16-4]) rotate([0,0,90]) cylinder(d=7,h=3.1,$fn=6);
 				// horz hole
 				translate([50,-21+7.5,42/2+3]) mirror([1,0,0]) rotate([0,90,0])  cylinder(d=3,h=200,$fn=16);
 				translate([50,-21+7.5,-12]) mirror([1,0,0]) rotate([0,90,0])  cylinder(d=3,h=200,$fn=16);
