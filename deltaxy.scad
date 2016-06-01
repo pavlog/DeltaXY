@@ -799,6 +799,13 @@ module Idler(partIndex)
 								translate([-11,-21,-26]) cube([22,11,30]);
 							}
 						}
+						if( partIndex==-1 || partIndex==7 )
+						{
+							color("blue") 
+							{
+								translate([-11,-21,-26-30]) cube([22,11,30]);
+							}
+						}
 					}
 				}
 				// vert holes
@@ -806,9 +813,12 @@ module Idler(partIndex)
 				translate([6/2+3,-holeDist-1,-100]) rotate([0,0,90]) cylinder(d=3,h=200,$fn=32);
 				translate([-6/2-3,-holeDist-1,-16-4]) rotate([0,0,90]) cylinder(d=7,h=3.1,$fn=6);
 				translate([6/2+3,-holeDist-1,-16-4]) rotate([0,0,90]) cylinder(d=7,h=3.1,$fn=6);
+				translate([-6/2-3,-holeDist-1,-16-4-30]) rotate([0,0,90]) cylinder(d=7,h=3.1,$fn=6);
+				translate([6/2+3,-holeDist-1,-16-4-30]) rotate([0,0,90]) cylinder(d=7,h=3.1,$fn=6);
 				// horz hole
 				translate([50,-21+7.5,42/2+3]) mirror([1,0,0]) rotate([0,90,0])  cylinder(d=3,h=200,$fn=16);
 				translate([50,-21+7.5,-12]) mirror([1,0,0]) rotate([0,90,0])  cylinder(d=3,h=200,$fn=16);
+				translate([50,-21+7.5,-30-30-17+15]) mirror([1,0,0]) rotate([0,90,0])  cylinder(d=3,h=200,$fn=16);
 				//translate([50,-21+7.5,-42/2-3]) mirror([1,0,0]) rotate([0,90,0])  cylinder(d=3,h=200,$fn=16);
 				//
 				translate([0,0,-9]) rotate([90,0,0])  cylinder(d=3,h=250,$fn=16);
@@ -822,9 +832,9 @@ module Idler(partIndex)
 		translate([ArmAXReal,RodsBottom-0.5,0]) rotate([-90,0,0])cylinder(d=6,h=RodsLen,$fn=32);
 	}
 }
-// part 6 is just a spacer if needed
-Idler(-1);
-mirror() Idler(-1);
+// part 5 is just a spacer if needed
+Idler(7);
+mirror() Idler(7);
 
 module IdlerStepper(partIndex)
 {
@@ -865,16 +875,33 @@ module IdlerStepper(partIndex)
 								}
 							}
 						}
+						if( partIndex==-1 || partIndex==3 )
+						{
+							color("blue") 
+							{
+								difference()
+								{
+									translate([-11,-21,-26-30]) cube([22,11,30]);
+									//translate([-3,-20,15]) cube([16,10,20]);
+									//translate([9,-19.5,-4]) cube([7,10,8]);
+									//#translate([7,-19.5,4]) cube([16,7,20]);
+								}
+							}
+						}
 					}
 				}
 				// vert holes
 				translate([-6/2-3,-holeDist-1,-100]) rotate([0,0,90]) cylinder(d=3,h=200,$fn=32);
 				translate([-6/2-3,-holeDist-1,-20]) rotate([0,0,30])  rotate([0,0,90]) cylinder(d=7,h=31,$fn=6);
+				translate([-6/2-3,-holeDist-1,-20-30]) rotate([0,0,30])  rotate([0,0,90]) cylinder(d=7,h=31,$fn=6);
 				translate([6/2+3,-holeDist-1,-100]) rotate([0,0,90]) cylinder(d=3,h=200,$fn=32);
 				translate([6/2+3,-holeDist-1,-20]) rotate([0,0,30])  rotate([0,0,90]) cylinder(d=7,h=31,$fn=6);
 				translate([-6/2-3,-holeDist-1,8]) rotate([0,0,90]) cylinder(d=7,h=200,$fn=6);
+				translate([6/2+3,-holeDist-1,-20-30]) rotate([0,0,30])  rotate([0,0,90]) cylinder(d=7,h=31,$fn=6);
 				// horz hole
 				translate([50,-21+7.5,42/2+3]) mirror([1,0,0]) rotate([0,90,0])  cylinder(d=3,h=200,$fn=16);
+				//
+				#translate([50,-21+7.5,-20-30-27+15]) mirror([1,0,0]) rotate([0,90,0])  cylinder(d=3,h=200,$fn=16);
 				//#translate([50,-21+7.5,-12]) mirror([1,0,0]) rotate([0,90,0])  cylinder(d=3,h=200,$fn=16);
 				//translate([50,-21+7.5,-42/2-3]) mirror([1,0,0]) rotate([0,90,0])  cylinder(d=3,h=200,$fn=16);
 				//
@@ -954,6 +981,7 @@ translate([ArmBXReal-3,100,-180+2])rotate([0,0,0])
 {
 	ZPlatformHinge();
 	color("black") translate([7,5,25]) rotate([0,0,0]) dimensions(9, DIM_LINE_WIDTH/2, height=DIM_HEIGHT, loc=DIM_OUTSIDE);
+	color("black") translate([7,5,25+3]) rotate([0,0,-90]) dimensions(100+6, DIM_LINE_WIDTH/2, height=DIM_HEIGHT, loc=DIM_OUTSIDE);
 }
 
 translate([ArmAXReal-9,94,-180+2])rotate([0,0,-90])
@@ -965,11 +993,13 @@ translate([ArmAXReal-8-2-3,-1,-180])
 {
 	LProfileWithDimensions(30,30,2,202);
 	color("black") translate([0,4,3]) rotate([0,0,0]) dimensions(7, DIM_LINE_WIDTH/2, height=DIM_HEIGHT, loc=DIM_OUTSIDE);
-	color("black") translate([0,4-4,3]) rotate([0,0,0]) dimensions(7+12, DIM_LINE_WIDTH/2, height=DIM_HEIGHT, loc=DIM_OUTSIDE);
+	color("black") translate([0,4+3,3]) rotate([0,0,0]) dimensions(7+12, DIM_LINE_WIDTH/2, height=DIM_HEIGHT, loc=DIM_CENTER);
+	color("black") translate([19,4-4,3]) rotate([0,0,90]) dimensions(4, DIM_LINE_WIDTH/2, height=DIM_HEIGHT, loc=DIM_OUTSIDE);
+	color("black") translate([7,4-4,-3]) rotate([90,0,90]) dimensions(202-6, DIM_LINE_WIDTH/2, height=DIM_HEIGHT, loc=DIM_OUTSIDE);
 }
 translate([ArmBXReal+8+2+3,-1,-180])
 {
-	mirror([1,0,0]) LProfileWithDimensions(30,30,2,200);
+	mirror([1,0,0]) LProfileWithDimensions(30,30,2,202);
 }
 //translate([ArmAXReal-8-2-3,55,0])
 //{
@@ -979,4 +1009,5 @@ translate([ArmBXReal+8+2+3,-1,-180])
 
 
 #translate([-75,70,-155]) cube([150,120,2]);
+translate([-60,80,-155+10]) cube([120,100,2]);
 
