@@ -908,6 +908,7 @@ color("green") translate([0,80,-200+50]) cylinder(d=3,h=100);
 
 zRodsX = 35;
 
+/*
 translate([-zRodsX,55,-180]) cylinder(d=6,h=160);
 translate([zRodsX,55,-180]) cylinder(d=6,h=160);
 
@@ -920,6 +921,7 @@ translate([-zRodsX,55,-175+26]) rotate([90,0,0]) SCS6UU();
 translate([-zRodsX,55,-175]) rotate([90,0,0]) SCS6UU();
 }
 
+*/
 
 #translate([ArmAXReal,RodsBottom+RodsLen+10+1,-180])
 {
@@ -952,7 +954,6 @@ translate([ArmBXReal-3,100,-180+2])rotate([0,0,0])
 {
 	ZPlatformHinge();
 	color("black") translate([7,5,25]) rotate([0,0,0]) dimensions(9, DIM_LINE_WIDTH/2, height=DIM_HEIGHT, loc=DIM_OUTSIDE);
-	color("black") translate([7,-125,25]) rotate([0,0,0]) dimensions(9, DIM_LINE_WIDTH/2, height=DIM_HEIGHT, loc=DIM_OUTSIDE);
 }
 
 translate([ArmAXReal-9,94,-180+2])rotate([0,0,-90])
@@ -963,6 +964,8 @@ translate([ArmAXReal-9,94,-180+2])rotate([0,0,-90])
 translate([ArmAXReal-8-2-3,-1,-180])
 {
 	LProfileWithDimensions(30,30,2,202);
+	color("black") translate([0,4,3]) rotate([0,0,0]) dimensions(7, DIM_LINE_WIDTH/2, height=DIM_HEIGHT, loc=DIM_OUTSIDE);
+	color("black") translate([0,4-4,3]) rotate([0,0,0]) dimensions(7+12, DIM_LINE_WIDTH/2, height=DIM_HEIGHT, loc=DIM_OUTSIDE);
 }
 translate([ArmBXReal+8+2+3,-1,-180])
 {
