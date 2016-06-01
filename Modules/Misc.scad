@@ -1,4 +1,8 @@
 include <MCAD/stepper.scad>
+use <Profiles.scad>
+include <dimlines.scad>
+include <TextGenerator.scad>
+
 use <Pulley_T-MXL-XL-HTD-GT2_N-tooth.scad>
 module Pulley16Teeth()
 {
@@ -187,4 +191,20 @@ module cubeRoundedXY(size,r=1,fn=16,corners=[1,1,1,1])
 		}
 	}
 }
-//Nema17_shaft24_Stepper();
+
+module LProfileWithDimensions(x=10,y=10,w=1.5,len=200)
+{
+LProfile(x,y,w,len);
+color("black") translate([0,-10,0]) 
+{
+	rotate([0,0,90]) line(length=15, width=DIM_LINE_WIDTH/2, height=DIM_HEIGHT,
+		left_arrow=false, right_arrow=false);
+	rotate([0,0,90]) translate([0,-y,0]) line(length=15, width=DIM_LINE_WIDTH/2, height=DIM_HEIGHT,
+		left_arrow=false, right_arrow=false);	
+	dimensions(y, DIM_LINE_WIDTH, height=DIM_HEIGHT, loc=DIM_OUTSIDE);
+	rotate([0,-90,180]) dimensions(x, DIM_LINE_WIDTH, height=DIM_HEIGHT, loc=DIM_OUTSIDE);
+}
+	color("black") translate([-10,0,5]) rotate([0,0,90]) dimensions(len, DIM_LINE_WIDTH/2, height=DIM_HEIGHT, loc=DIM_OUTSIDE);
+}
+
+

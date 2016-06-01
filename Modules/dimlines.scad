@@ -90,9 +90,9 @@ DIM_LOWER_RIGHT = 3;
  * part.
  */
 
-DIM_LINE_WIDTH = .025; // width of dimension lines
+DIM_LINE_WIDTH = 1; // width of dimension lines
 DIM_SPACE = .1;  // a spacing value to make it easier to adjust line spacing etc
-DIM_HEIGHT = .01; // height of lines
+DIM_HEIGHT = .1; // height of lines
 
 // refers to the size of the cross within a circle
 DIM_HOLE_CENTER = DIM_LINE_WIDTH * 6;
@@ -100,7 +100,7 @@ DIM_HOLE_CENTER = DIM_LINE_WIDTH * 6;
 // an approximation that sets the font size relative to the line widths
 DIM_FONTSCALE = DIM_LINE_WIDTH * .7;
 
-DIM_TEXT_RENDER_DEFAULT = 0;
+DIM_TEXT_RENDER_DEFAULT = 1;
 DIM_TEXT_RENDER_WRITESCAD = 1;
 
 DIM_TEXT_RENDER	= DIM_TEXT_RENDER_DEFAULT;

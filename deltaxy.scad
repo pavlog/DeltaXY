@@ -6,20 +6,17 @@ use <Modules/Write.scad/Write.scad>
 include <Modules/MCAD/stepper.scad>
 use <Modules/HotEnds.scad>
 use <Modules/LCD.scad>
-use <Modules/Misc.scad>
 use <Modules/Profiles.scad>
-include <Modules/dimlines.scad>
-include <Modules/TextGenerator.scad>
 use <Modules/BezierScad.scad>
 use <Modules/Belt_Generator.scad>
 use <Modules/RAMPS.scad>
+use <ZPlatform.scad>
+use <Modules/Misc.scad>
+include <Modules/dimlines.scad>
+include <Modules/TextGenerator.scad>
 
 drawArray = [];//[1,2,3,4,5];//[1,7,8];
 
-
-DIM_LINE_WIDTH = 1;
-DIM_HEIGHT = 0.1;
-DIM_TEXT_RENDER = 1;
 
 // visualization
 // https://jsfiddle.net/PavloG/9L42z9he/
@@ -29,7 +26,7 @@ animY = abs(sin($t*180))*100;
 animX = cos($t*180*4)*50;
 
 animX = 50;
-animY = 85;
+animY = 0;//85;
 // 85 seems to be max
 //echo(animY);
 echo(animX);
@@ -923,6 +920,60 @@ translate([-zRodsX,55,-175+26]) rotate([90,0,0]) SCS6UU();
 translate([-zRodsX,55,-175]) rotate([90,0,0]) SCS6UU();
 }
 
+
+#translate([ArmAXReal,RodsBottom+RodsLen+10+1,-180])
+{
+	holeDist = lookup(NemaDistanceBetweenMountingHoles, Nema17) * 0.5;
+	translate([-6/2-3,-holeDist-1,0]) rotate([0,0,90]) cylinder(d=3,h=200,$fn=32);
+	translate([6/2+3,-holeDist-1,0]) rotate([0,0,90]) cylinder(d=3,h=200,$fn=32);
+}
+#mirror([1,0,0]) translate([ArmAXReal,RodsBottom+RodsLen+10+1,-180])
+{
+	holeDist = lookup(NemaDistanceBetweenMountingHoles, Nema17) * 0.5;
+	translate([-6/2-3,-holeDist-1,0]) rotate([0,0,90]) cylinder(d=3,h=200,$fn=32);
+	translate([6/2+3,-holeDist-1,0]) rotate([0,0,90]) cylinder(d=3,h=200,$fn=32);
+}
+
+#translate([ArmAXReal,20,-180])
+{
+	holeDist = lookup(NemaDistanceBetweenMountingHoles, Nema17) * 0.5;
+	translate([-6/2-3,-holeDist-1,0]) rotate([0,0,90]) cylinder(d=3,h=200,$fn=32);
+	translate([6/2+3,-holeDist-1,0]) rotate([0,0,90]) cylinder(d=3,h=200,$fn=32);
+}
+#mirror([1,0,0]) translate([ArmAXReal,20,-180])
+{
+	holeDist = lookup(NemaDistanceBetweenMountingHoles, Nema17) * 0.5;
+	translate([-6/2-3,-holeDist-1,0]) rotate([0,0,90]) cylinder(d=3,h=200,$fn=32);
+	translate([6/2+3,-holeDist-1,0]) rotate([0,0,90]) cylinder(d=3,h=200,$fn=32);
+}
+
+
+translate([ArmBXReal-3,100,-180+2])rotate([0,0,0]) 
+{
+	ZPlatformHinge();
+	color("black") translate([7,5,25]) rotate([0,0,0]) dimensions(9, DIM_LINE_WIDTH/2, height=DIM_HEIGHT, loc=DIM_OUTSIDE);
+	color("black") translate([7,-125,25]) rotate([0,0,0]) dimensions(9, DIM_LINE_WIDTH/2, height=DIM_HEIGHT, loc=DIM_OUTSIDE);
+}
+
+translate([ArmAXReal-9,94,-180+2])rotate([0,0,-90])
+{
+	ZPlatformHinge();
+}
+
+translate([ArmAXReal-8-2-3,-1,-180])
+{
+	LProfileWithDimensions(30,30,2,202);
+}
+translate([ArmBXReal+8+2+3,-1,-180])
+{
+	mirror([1,0,0]) LProfileWithDimensions(30,30,2,200);
+}
+//translate([ArmAXReal-8-2-3,55,0])
+//{
+//	LProfileWithDimensions(30,30,2,200);
+//}
 //translate([ArmBXReal-15,0,-180]) cube([30,94,93]);
 
+
+#translate([-75,70,-155]) cube([150,120,2]);
 
