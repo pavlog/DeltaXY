@@ -833,8 +833,8 @@ module Idler(partIndex)
 	}
 }
 // part 5 is just a spacer if needed
-Idler(7);
-mirror() Idler(7);
+Idler(-1);
+mirror() Idler(-1);
 
 module IdlerStepper(partIndex)
 {
@@ -987,6 +987,7 @@ translate([ArmBXReal-3,100,-180+2])rotate([0,0,0])
 translate([ArmAXReal-9,94,-180+2])rotate([0,0,-90])
 {
 	ZPlatformHinge();
+	color("black") translate([7,5,25]) rotate([0,0,0]) dimensions(100-10-2, DIM_LINE_WIDTH/2, height=DIM_HEIGHT, loc=DIM_OUTSIDE);
 }
 
 translate([ArmAXReal-8-2-3,-1,-180])
@@ -1007,7 +1008,12 @@ translate([ArmBXReal+8+2+3,-1,-180])
 //}
 //translate([ArmBXReal-15,0,-180]) cube([30,94,93]);
 
-
-#translate([-75,70,-155]) cube([150,120,2]);
+// z platform base
+translate([-75,70,-157]) 
+{
+	#cube([150,120,2]);
+	color("black") translate([0,5,3]) rotate([0,0,0]) dimensions(150, DIM_LINE_WIDTH/2, height=DIM_HEIGHT, loc=DIM_OUTSIDE);
+	color("black") translate([20,0,3]) rotate([0,0,90]) dimensions(120, DIM_LINE_WIDTH/2, height=DIM_HEIGHT, loc=DIM_OUTSIDE);
+}
 translate([-60,80,-155+10]) cube([120,100,2]);
 
