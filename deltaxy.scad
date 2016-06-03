@@ -600,7 +600,7 @@ module SlideBlockClampB(partIndex)
 }
 SlideBlockClampB(-1);
 
-module StepperAndEndStopper(partIndex)
+module StepperAndEndStopper(partIndex,side=0)
 {
 	holeDist = lookup(NemaDistanceBetweenMountingHoles, Nema17) * 0.5;
 	difference()
@@ -738,10 +738,21 @@ module StepperAndEndStopper(partIndex)
 										translate([xOffs,yOffs+4,42-4]) rotate([0,90,0])  cylinder(d=8,h=Height);
 										translate([xOffs,yOffs-4,42-4]) rotate([0,90,0])  cylinder(d=8,h=Height);
 										translate([xOffs,yOffs+4,5]) rotate([0,90,0])  cylinder(d=8,h=Height);
-										translate([xOffs,yOffs-7,-4]) rotate([0,90,0])  cylinder(d=8,h=Height);
+										translate([xOffs,yOffs-7,-3]) rotate([0,90,0])  cylinder(d=8,h=Height);
+										translate([xOffs,yOffs-3,-3]) rotate([0,90,0])  cylinder(d=8,h=Height);
+									}
+									hull()
+									{
+										xOffs = 17;
+										yOffs = 21;
+										Height = 12;
+										translate([xOffs,yOffs+4,5]) rotate([0,90,0])  cylinder(d=8,h=Height);
+										translate([xOffs,yOffs-7,-3]) rotate([0,90,0])  cylinder(d=8,h=Height);
+										translate([xOffs,yOffs+4,5]) rotate([0,90,0])  cylinder(d=8,h=Height);
+										translate([xOffs,yOffs-36,-3]) rotate([0,90,0])  cylinder(d=8,h=Height);
 									}
 									}
-									translate([16,0,21]) rotate([0,90,0]) rotate([0,0,0]) Nema17_shaft24_Stepper();
+									translate([15,0,21]) rotate([0,90,0]) rotate([0,0,0]) Nema17_shaft24_Stepper();
 									translate([16,-36/2,21+36/2]) rotate([0,90,0]) rotate([0,0,0]) cube([36,36,10]);
 									translate([23,55,34]) rotate([90,0,0]) rotate([0,0,0]) cylinder(d=3,h=50,$fn=16);
 									/*
@@ -751,6 +762,23 @@ module StepperAndEndStopper(partIndex)
 									translate([64,55,20]) rotate([90,0,0]) rotate([0,0,0]) cylinder(d=25,h=50,$fn=16);
 									}
 									*/
+								}
+							}
+						}
+						if( (partIndex==-1 || partIndex==8) && side==1 )
+						{
+							color("orange") 
+							{
+								difference()
+								{
+									hull()
+									{
+										translate([23,36,34]) rotate([90,0,0]) rotate([0,0,0]) cylinder(d=12,h=7,$fn=16);
+										translate([23-7.5,36,34-30]) rotate([90,0,0]) rotate([0,0,0]) cube([15,3,7],cender=true);
+										//translate([23,36,34-30]) rotate([90,0,0]) rotate([0,0,0]) cylinder(d=12,h=7,$fn=16);
+									}
+									translate([23,55,34]) rotate([90,0,0]) rotate([0,0,0]) cylinder(d=3,h=50,$fn=16);
+									translate([23,32.5,0]) rotate([0,0,0]) rotate([0,0,0]) cylinder(d=3,h=20,$fn=16);
 								}
 							}
 						}
@@ -795,8 +823,8 @@ module StepperAndEndStopper(partIndex)
 	}
 }
 // part 6 is just a spacer if needed
-StepperAndEndStopper(-1);
-mirror() StepperAndEndStopper(-1);
+StepperAndEndStopper(-1,0);
+mirror() StepperAndEndStopper(-1,1);
 
 module Idler(partIndex)
 {
@@ -1010,10 +1038,10 @@ translate([0,-10,-20])
 translate([42,60,-135]) rotate([90,0,0]) rotate([0,0,90]) 
 	{
 		color("GREEN") Nema17_shaft24_Stepper(NemaSize=NemaLengthShort);
-		translate([0,0,-16]) rotate([0,0,0]) rotate([0,0,0]) GT2_16_Pulley();
-		color("black") translate([-5,5,-9.5]) rotate([0,0,0]) rotate([0,0,0]) cube([145,2,6]);
-		color("black") translate([-5,-7,-9.5]) rotate([0,0,0]) rotate([0,0,0]) cube([145,2,6]);
-		translate([131,0,-11]) rotate([0,0,0]) rotate([0,0,0]) GT2_16_Idler(3);
+		translate([0,0,-6+4]) rotate([0,180,0]) rotate([0,0,0]) GT2_16_Pulley();
+		color("black") translate([-5,5,-17.5+4]) rotate([0,0,0]) rotate([0,0,0]) cube([145,2,6]);
+		color("black") translate([-5,-7,-17.5+4]) rotate([0,0,0]) rotate([0,0,0]) cube([145,2,6]);
+		translate([131,0,-11-4]) rotate([0,0,0]) rotate([0,0,0]) GT2_16_Idler(3);
 		//translate([131,0,-20]) rotate([0,0,0]) rotate([0,0,0]) cylinder(d=3,h=50,$fn=16);
 }
 //translate([0,55,-120]) rotate([0,0,0]) cylinder(d=8,h=100);
@@ -1024,7 +1052,7 @@ color("green") translate([0,80,-200+50]) cylinder(d=3,h=100);
 
 //translate([-15,35,-110]) mirror([0,1,0]) rotate([0,90,0]) rotate([0,0,0]) RAMPS();
 
-//translate([-20,45,-98]) mirror([0,1,0]) rotate([90,0,180]) RAMPS();
+translate([-0,50,-100]) mirror([0,1,0]) rotate([90,0,180]) RAMPS();
 
 zRodsX = 35;
 
@@ -1109,10 +1137,14 @@ translate([ArmBXReal+8+2+3,-1,-180])
 
 // z platform base
 translate([-75,70,-157]) 
+//translate([-75,70,-54]) 
 {
-	#cube([150,120,2]);
+	#translate([0,0,0]) cube([150,120,2]);
 	color("black") translate([0,5,3]) rotate([0,0,0]) dimensions(150, DIM_LINE_WIDTH/2, height=DIM_HEIGHT, loc=DIM_OUTSIDE);
 	color("black") translate([20,0,3]) rotate([0,0,90]) dimensions(120, DIM_LINE_WIDTH/2, height=DIM_HEIGHT, loc=DIM_OUTSIDE);
+
+	color("black") translate([140,0,3]) rotate([0,0,90]) dimensions(35, DIM_LINE_WIDTH/2, height=DIM_HEIGHT, loc=DIM_OUTSIDE);
+	color("black") translate([140+4,30,3]) rotate([0,0,0]) dimensions(9-3, DIM_LINE_WIDTH/2, height=DIM_HEIGHT, loc=DIM_LEFT);
 }
-translate([-60,80,-155+10]) cube([120,100,2]);
+color("orange") translate([-62.5,75,-155+10]) cube([120,110,2]);
 
