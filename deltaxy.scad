@@ -25,13 +25,13 @@ drawArray = [];//[1,2,3,4,5];//[1,7,8];
 animY = abs(sin($t*180))*100;
 animX = cos($t*180*4)*50;
 
-animX = 50;
+animX = 0;
 animY = 85;//85;
 // 85 seems to be max
 //echo(animY);
 echo(animX);
 Target_X = 0+animX;
-Target_Y = (82)+animY;
+Target_Y = (83)+animY;
 
 ArmALen = 50;
 ArmAX = -15;
@@ -1136,15 +1136,20 @@ translate([ArmBXReal+8+2+3,-1,-180])
 //translate([ArmBXReal-15,0,-180]) cube([30,94,93]);
 
 // z platform base
-translate([-75,70,-157]) 
+
+color("grey") translate([-60,75,-155+10]) cube([120,110,2]);
+
+translate([-75,68,-157]) 
 //translate([-75,70,-54]) 
 {
-	#translate([0,0,0]) cube([150,120,2]);
-	color("black") translate([0,5,3]) rotate([0,0,0]) dimensions(150, DIM_LINE_WIDTH/2, height=DIM_HEIGHT, loc=DIM_OUTSIDE);
-	color("black") translate([20,0,3]) rotate([0,0,90]) dimensions(120, DIM_LINE_WIDTH/2, height=DIM_HEIGHT, loc=DIM_OUTSIDE);
+	color("black") translate([0,60,3]) rotate([0,0,0]) dimensions(150, DIM_LINE_WIDTH/2, height=DIM_HEIGHT, loc=DIM_OUTSIDE);
+	color("black") translate([75,0,3]) rotate([0,0,90]) dimensions(120, DIM_LINE_WIDTH/2, height=DIM_HEIGHT, loc=DIM_RIGHT);
 
 	color("black") translate([140,0,3]) rotate([0,0,90]) dimensions(35, DIM_LINE_WIDTH/2, height=DIM_HEIGHT, loc=DIM_OUTSIDE);
 	color("black") translate([140+4,30,3]) rotate([0,0,0]) dimensions(9-3, DIM_LINE_WIDTH/2, height=DIM_HEIGHT, loc=DIM_LEFT);
+
+	color("black") translate([12,0,3]) rotate([0,0,90]) dimensions(19, DIM_LINE_WIDTH/2, height=DIM_HEIGHT, loc=DIM_OUTSIDE);
+	color("black") translate([0,25,3]) rotate([0,0,0]) dimensions(9-3, DIM_LINE_WIDTH/2, height=DIM_HEIGHT, loc=DIM_CENTER);
+	color([1,0,1,0.2]) translate([0,0,0]) cube([150,120,2]);
 }
-color("orange") translate([-62.5,75,-155+10]) cube([120,110,2]);
 
