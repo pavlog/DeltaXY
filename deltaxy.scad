@@ -26,7 +26,7 @@ animY = abs(sin($t*180))*100;
 animX = cos($t*180*4)*50;
 
 animX = 50;
-animY = 0;//85;
+animY = 85;//85;
 // 85 seems to be max
 //echo(animY);
 echo(animX);
@@ -695,6 +695,65 @@ module StepperAndEndStopper(partIndex)
 								translate([17-4,-21,42+8]) mirror([1,0,0]) cube([28-4,11,2]);
 							}
 						}
+						if( partIndex==-1 || partIndex==7 )
+						{
+							color("magenta") 
+							{
+								hull()
+								{
+									//translate([17,holeDist,+21-holeDist]) rotate([0,-90,0]) cylinder(d=11,h=4,$fn=32);
+									//translate([17,holeDist,+21+holeDist]) rotate([0,-90,0]) cylinder(d=11,h=4,$fn=32);
+									//translate([17,-holeDist,+21+holeDist]) rotate([0,-90,0]) cylinder(d=11,h=4,$fn=32);
+									//translate([17,-holeDist,+21-holeDist]) rotate([0,-90,0]) cylinder(d=11,h=4,$fn=32);
+								}
+								//translate([17,-21,0]) mirror([1,0,0]) cube([4,42,42]);
+								hull()
+								{
+									//translate([17,-21+6,42+4]) mirror([1,0,0]) rotate([0,90,0])  cylinder(d=8,h=4);
+									//translate([17,-21+8,42+4]) mirror([1,0,0]) rotate([0,90,0])  cylinder(d=8,h=4);
+									//translate([17,-21+10,42]) mirror([1,0,0]) rotate([0,90,0])  cylinder(d=8,h=4);
+									//translate([17,-21+4,42]) mirror([1,0,0]) rotate([0,90,0])  cylinder(d=8,h=4);
+
+									//translate([17,-21+6,0-4]) mirror([1,0,0]) rotate([0,90,0])  cylinder(d=8,h=4);
+									//translate([17,-21+8,0-4]) mirror([1,0,0]) rotate([0,90,0])  cylinder(d=8,h=4);
+									//translate([17,-21+10,0]) mirror([1,0,0]) rotate([0,90,0])  cylinder(d=8,h=4);
+									//translate([17,-21+4,0]) mirror([1,0,0]) rotate([0,90,0])  cylinder(d=8,h=4);
+
+									//translate([17,7+6,0-4]) mirror([1,0,0]) rotate([0,90,0])  cylinder(d=8,h=4);
+									//translate([17,7+8,0-4]) mirror([1,0,0]) rotate([0,90,0])  cylinder(d=8,h=4);
+									//translate([17,7+10,5]) mirror([1,0,0]) rotate([0,90,0])  cylinder(d=8,h=4);
+									//translate([17,7+4,0]) mirror([1,0,0]) rotate([0,90,0])  cylinder(d=8,h=4);
+								}
+								difference()
+								{
+									union()
+									{
+									hull()
+									{
+										xOffs = 17;
+										yOffs = 21;
+										Height = 12;
+										translate([xOffs,yOffs-6,42-12]) rotate([0,90,0])  cylinder(d=8,h=Height);
+										translate([xOffs,yOffs+4,42-6]) rotate([0,90,0])  cylinder(d=8,h=Height);
+										translate([xOffs,yOffs+4,42-4]) rotate([0,90,0])  cylinder(d=8,h=Height);
+										translate([xOffs,yOffs-4,42-4]) rotate([0,90,0])  cylinder(d=8,h=Height);
+										translate([xOffs,yOffs+4,5]) rotate([0,90,0])  cylinder(d=8,h=Height);
+										translate([xOffs,yOffs-7,-4]) rotate([0,90,0])  cylinder(d=8,h=Height);
+									}
+									}
+									translate([16,0,21]) rotate([0,90,0]) rotate([0,0,0]) Nema17_shaft24_Stepper();
+									translate([16,-36/2,21+36/2]) rotate([0,90,0]) rotate([0,0,0]) cube([36,36,10]);
+									translate([23,55,34]) rotate([90,0,0]) rotate([0,0,0]) cylinder(d=3,h=50,$fn=16);
+									/*
+									hull()
+									{
+									translate([44,55,20]) rotate([90,0,0]) rotate([0,0,0]) cylinder(d=25,h=50,$fn=16);
+									translate([64,55,20]) rotate([90,0,0]) rotate([0,0,0]) cylinder(d=25,h=50,$fn=16);
+									}
+									*/
+								}
+							}
+						}
 					}
 				}
 				translate([16,0,0]) rotate([0,90,0]) rotate([0,0,0]) Nema17_shaft24_Stepper(1);
@@ -719,9 +778,9 @@ module StepperAndEndStopper(partIndex)
 					//translate([12.9,0,0]) rotate([0,90,0]) cylinder(d=23,h=5.1);
 				}
 				translate([50,-21+7.5,42/2+3]) mirror([1,0,0]) rotate([0,90,0])  cylinder(d=3,h=200,$fn=16);
-				translate([50,21+3.5,42/2-5]) mirror([1,0,0]) rotate([0,90,0])  cylinder(d=3,h=200,$fn=16);
+				translate([75,21+3.5,42/2-5]) mirror([1,0,0]) rotate([0,90,0])  cylinder(d=3,h=200,$fn=16);
 				translate([50,-21+7.5,-42/2-3]) mirror([1,0,0]) rotate([0,90,0])  cylinder(d=3,h=200,$fn=16);
-				translate([50,14,-42/2-3]) mirror([1,0,0]) rotate([0,90,0])  cylinder(d=3,h=200,$fn=16);
+				translate([75,14,-42/2-3]) mirror([1,0,0]) rotate([0,90,0])  cylinder(d=3,h=200,$fn=16);
 				//#translate([50,-21+4,42/2+3]) mirror([1,0,0]) rotate([0,90,0])  cylinder(d=7,h=200,$fn=6);
 			}
 			translate([-8+2,-3,15])
@@ -948,7 +1007,15 @@ mirror() IdlerStepper(-1);
 
 translate([0,-10,-20])
 {
-translate([0,50,-130]) rotate([90,0,0]) Nema17_shaft24_Stepper(NemaSize=NemaLengthShort);
+translate([42,60,-135]) rotate([90,0,0]) rotate([0,0,90]) 
+	{
+		color("GREEN") Nema17_shaft24_Stepper(NemaSize=NemaLengthShort);
+		translate([0,0,-16]) rotate([0,0,0]) rotate([0,0,0]) GT2_16_Pulley();
+		color("black") translate([-5,5,-9.5]) rotate([0,0,0]) rotate([0,0,0]) cube([145,2,6]);
+		color("black") translate([-5,-7,-9.5]) rotate([0,0,0]) rotate([0,0,0]) cube([145,2,6]);
+		translate([131,0,-11]) rotate([0,0,0]) rotate([0,0,0]) GT2_16_Idler(3);
+		//translate([131,0,-20]) rotate([0,0,0]) rotate([0,0,0]) cylinder(d=3,h=50,$fn=16);
+}
 //translate([0,55,-120]) rotate([0,0,0]) cylinder(d=8,h=100);
 }
 
