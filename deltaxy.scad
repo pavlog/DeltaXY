@@ -699,31 +699,6 @@ module StepperAndEndStopper(partIndex,side=0)
 						{
 							color("magenta") 
 							{
-								hull()
-								{
-									//translate([17,holeDist,+21-holeDist]) rotate([0,-90,0]) cylinder(d=11,h=4,$fn=32);
-									//translate([17,holeDist,+21+holeDist]) rotate([0,-90,0]) cylinder(d=11,h=4,$fn=32);
-									//translate([17,-holeDist,+21+holeDist]) rotate([0,-90,0]) cylinder(d=11,h=4,$fn=32);
-									//translate([17,-holeDist,+21-holeDist]) rotate([0,-90,0]) cylinder(d=11,h=4,$fn=32);
-								}
-								//translate([17,-21,0]) mirror([1,0,0]) cube([4,42,42]);
-								hull()
-								{
-									//translate([17,-21+6,42+4]) mirror([1,0,0]) rotate([0,90,0])  cylinder(d=8,h=4);
-									//translate([17,-21+8,42+4]) mirror([1,0,0]) rotate([0,90,0])  cylinder(d=8,h=4);
-									//translate([17,-21+10,42]) mirror([1,0,0]) rotate([0,90,0])  cylinder(d=8,h=4);
-									//translate([17,-21+4,42]) mirror([1,0,0]) rotate([0,90,0])  cylinder(d=8,h=4);
-
-									//translate([17,-21+6,0-4]) mirror([1,0,0]) rotate([0,90,0])  cylinder(d=8,h=4);
-									//translate([17,-21+8,0-4]) mirror([1,0,0]) rotate([0,90,0])  cylinder(d=8,h=4);
-									//translate([17,-21+10,0]) mirror([1,0,0]) rotate([0,90,0])  cylinder(d=8,h=4);
-									//translate([17,-21+4,0]) mirror([1,0,0]) rotate([0,90,0])  cylinder(d=8,h=4);
-
-									//translate([17,7+6,0-4]) mirror([1,0,0]) rotate([0,90,0])  cylinder(d=8,h=4);
-									//translate([17,7+8,0-4]) mirror([1,0,0]) rotate([0,90,0])  cylinder(d=8,h=4);
-									//translate([17,7+10,5]) mirror([1,0,0]) rotate([0,90,0])  cylinder(d=8,h=4);
-									//translate([17,7+4,0]) mirror([1,0,0]) rotate([0,90,0])  cylinder(d=8,h=4);
-								}
 								difference()
 								{
 									union()
@@ -735,12 +710,13 @@ module StepperAndEndStopper(partIndex,side=0)
 										Height = 12;
 										translate([xOffs,yOffs-6,42-12]) rotate([0,90,0])  cylinder(d=8,h=Height);
 										translate([xOffs,yOffs+4,42-6]) rotate([0,90,0])  cylinder(d=8,h=Height);
-										translate([xOffs,yOffs+4,42-4]) rotate([0,90,0])  cylinder(d=8,h=Height);
-										translate([xOffs,yOffs-4,42-4]) rotate([0,90,0])  cylinder(d=8,h=Height);
-										translate([xOffs,yOffs+4,5]) rotate([0,90,0])  cylinder(d=8,h=Height);
+										translate([xOffs,yOffs+7,42-4]) rotate([0,90,0])  cylinder(d=8,h=Height);
+										translate([xOffs,yOffs-7,42-4]) rotate([0,90,0])  cylinder(d=8,h=Height);
+										translate([xOffs,yOffs+7+2,-5]) rotate([0,90,0])  cylinder(d=4,h=Height);
 										translate([xOffs,yOffs-7,-3]) rotate([0,90,0])  cylinder(d=8,h=Height);
 										translate([xOffs,yOffs-3,-3]) rotate([0,90,0])  cylinder(d=8,h=Height);
 									}
+									/*
 									hull()
 									{
 										xOffs = 17;
@@ -751,10 +727,16 @@ module StepperAndEndStopper(partIndex,side=0)
 										translate([xOffs,yOffs+4,5]) rotate([0,90,0])  cylinder(d=8,h=Height);
 										translate([xOffs,yOffs-36,-3]) rotate([0,90,0])  cylinder(d=8,h=Height);
 									}
+									*/
 									}
-									translate([15,0,21]) rotate([0,90,0]) rotate([0,0,0]) Nema17_shaft24_Stepper();
-									translate([16,-36/2,21+36/2]) rotate([0,90,0]) rotate([0,0,0]) cube([36,36,10]);
+									//#translate([15,0,21]) rotate([0,90,0]) rotate([0,0,0]) scale([1.01,1.01,1]) Nema17_shaft24_Stepper();
+									//translate([16,-36/2,21+36/2]) rotate([0,90,0]) rotate([0,0,0]) cube([36,36,10]);
+									translate([15,-(43)/2,21+43/2]) rotate([0,90,0]) rotate([0,0,0]) cubeRoundedXY([43,43,15],r=4.5,fn=4);
+
 									translate([23,55,34]) rotate([90,0,0]) rotate([0,0,0]) cylinder(d=3,h=50,$fn=16);
+									translate([23,32,34]) rotate([90,0,0]) rotate([0,0,30]) cylinder(d=7,h=2.5,$fn=6);;
+									translate([23,26,-15]) rotate([0,0,0]) rotate([0,0,0]) cylinder(d=3,h=40,$fn=16);
+
 									/*
 									hull()
 									{
@@ -762,23 +744,6 @@ module StepperAndEndStopper(partIndex,side=0)
 									translate([64,55,20]) rotate([90,0,0]) rotate([0,0,0]) cylinder(d=25,h=50,$fn=16);
 									}
 									*/
-								}
-							}
-						}
-						if( (partIndex==-1 || partIndex==8) && side==1 )
-						{
-							color("orange") 
-							{
-								difference()
-								{
-									hull()
-									{
-										translate([23,36,34]) rotate([90,0,0]) rotate([0,0,0]) cylinder(d=12,h=7,$fn=16);
-										translate([23-7.5,36,34-30]) rotate([90,0,0]) rotate([0,0,0]) cube([15,3,7],cender=true);
-										//translate([23,36,34-30]) rotate([90,0,0]) rotate([0,0,0]) cylinder(d=12,h=7,$fn=16);
-									}
-									translate([23,55,34]) rotate([90,0,0]) rotate([0,0,0]) cylinder(d=3,h=50,$fn=16);
-									translate([23,32.5,0]) rotate([0,0,0]) rotate([0,0,0]) cylinder(d=3,h=20,$fn=16);
 								}
 							}
 						}
@@ -900,6 +865,20 @@ module Idler(partIndex)
 								translate([-11,-21,-26-30-30]) cube([22,11,30]);
 							}
 						}
+						if( partIndex==-1 || partIndex==9 )
+						{
+							color("blue") 
+							{
+								translate([-11,-21,-26-30-30-54+2+18]) cube([22,11,34]);
+							}
+						}
+						if( partIndex==-1 || partIndex==10 )
+						{
+							color("green") 
+							{
+								translate([-11,-21,-26-30-30-54+2+18-18]) cube([22,11-2,18]);
+							}
+						}
 					}
 				}
 				// vert holes
@@ -911,10 +890,15 @@ module Idler(partIndex)
 				translate([6/2+3,-holeDist-1,-16-4-30]) rotate([0,0,90]) cylinder(d=7,h=3.1,$fn=6);
 				translate([-6/2-3,-holeDist-1,-16-4-30-30]) rotate([0,0,90]) cylinder(d=7,h=3.1,$fn=6);
 				translate([6/2+3,-holeDist-1,-16-4-30-30]) rotate([0,0,90]) cylinder(d=7,h=3.1,$fn=6);
+				translate([-6/2-3,-holeDist-1,-16-4-30-30-54+2+18+4]) rotate([0,0,90]) cylinder(d=7,h=3.1,$fn=6);
+				translate([6/2+3,-holeDist-1,-16-4-30-30-54+2+18+4]) rotate([0,0,90]) cylinder(d=7,h=3.1,$fn=6);
+				#translate([-6/2-3,-holeDist-1,-16-4-30-30-54+2+18+4-30-19]) rotate([0,0,0]) cylinder(d=7.6,h=18,$fn=6);
+				translate([6/2+3,-holeDist-1,-16-4-30-30-54+2+18+4-30-19]) rotate([0,0,0]) cylinder(d=7.6,h=18,$fn=6);
 				// horz hole
 				translate([50,-21+7.5,42/2+3]) mirror([1,0,0]) rotate([0,90,0])  cylinder(d=3,h=200,$fn=16);
 				translate([50,-21+7.5,-12]) mirror([1,0,0]) rotate([0,90,0])  cylinder(d=3,h=200,$fn=16);
 				translate([50,-21+7.5,-30-30-17+15]) mirror([1,0,0]) rotate([0,90,0])  cylinder(d=3,h=200,$fn=16);
+				translate([50,-21+7.5,-30-30-17+15-45-17]) mirror([1,0,0]) rotate([0,90,0])  cylinder(d=3,h=200,$fn=16);
 				//translate([50,-21+7.5,-42/2-3]) mirror([1,0,0]) rotate([0,90,0])  cylinder(d=3,h=200,$fn=16);
 				//
 				translate([0,0,-9]) rotate([90,0,0])  cylinder(d=3,h=250,$fn=16);
@@ -997,6 +981,32 @@ module IdlerStepper(partIndex)
 								}
 							}
 						}
+						if( partIndex==-1 || partIndex==5 )
+						{
+							color("blue") 
+							{
+								difference()
+								{
+									translate([-11,-21,-26-30-30-34]) cube([22,11,34]);
+									//translate([-3,-20,15]) cube([16,10,20]);
+									//translate([9,-19.5,-4]) cube([7,10,8]);
+									//#translate([7,-19.5,4]) cube([16,7,20]);
+								}
+							}
+						}
+						if( partIndex==-1 || partIndex==6 )
+						{
+							color("blue") 
+							{
+								difference()
+								{
+									translate([-11,-21+2,-26-30-30-34-18]) cube([22,11-2,18]);
+									//translate([-3,-20,15]) cube([16,10,20]);
+									//translate([9,-19.5,-4]) cube([7,10,8]);
+									//#translate([7,-19.5,4]) cube([16,7,20]);
+								}
+							}
+						}
 					}
 				}
 				// vert holes
@@ -1011,10 +1021,17 @@ module IdlerStepper(partIndex)
 				translate([-6/2-3,-holeDist-1,-20-30-30]) rotate([0,0,30])  rotate([0,0,90]) cylinder(d=7,h=31,$fn=6);
 				translate([6/2+3,-holeDist-1,-20-30-30]) rotate([0,0,30])  rotate([0,0,90]) cylinder(d=7,h=31,$fn=6);
 
+				translate([-6/2-3,-holeDist-1,-20-30-30-30]) rotate([0,0,30])  rotate([0,0,90]) cylinder(d=7,h=31,$fn=6);
+				translate([6/2+3,-holeDist-1,-20-30-30-30]) rotate([0,0,30])  rotate([0,0,90]) cylinder(d=7,h=31,$fn=6);
+
+				translate([-6/2-3,-holeDist-1,-20-30-30-30-30-18-1]) rotate([0,0,30])  rotate([0,0,90]) cylinder(d=7.7,h=18,$fn=6);
+				translate([6/2+3,-holeDist-1,-20-30-30-30-30-18-1]) rotate([0,0,30])  rotate([0,0,90]) cylinder(d=7.7,h=18,$fn=6);
+
 				// horz hole
 				translate([50,-21+7.5,42/2+3]) mirror([1,0,0]) rotate([0,90,0])  cylinder(d=3,h=200,$fn=16);
 				//
 				translate([50,-21+7.5,-20-30-27+15]) mirror([1,0,0]) rotate([0,90,0])  cylinder(d=3,h=200,$fn=16);
+				translate([50,-21+7.5,-30-30-17+15-45-17]) mirror([1,0,0]) rotate([0,90,0])  cylinder(d=3,h=200,$fn=16);
 				//#translate([50,-21+7.5,-12]) mirror([1,0,0]) rotate([0,90,0])  cylinder(d=3,h=200,$fn=16);
 				//translate([50,-21+7.5,-42/2-3]) mirror([1,0,0]) rotate([0,90,0])  cylinder(d=3,h=200,$fn=16);
 				//
@@ -1033,26 +1050,98 @@ module IdlerStepper(partIndex)
 IdlerStepper(-1);
 mirror() IdlerStepper(-1);
 
-translate([0,-10,-20])
+// z stepper
+
+minZ = -200;
+module ZStepperMount(partIndex)
 {
-translate([42,60,-135]) rotate([90,0,0]) rotate([0,0,90]) 
+	!translate([0,-10,-20])
 	{
-		color("GREEN") Nema17_shaft24_Stepper(NemaSize=NemaLengthShort);
-		translate([0,0,-6+4]) rotate([0,180,0]) rotate([0,0,0]) GT2_16_Pulley();
-		color("black") translate([-5,5,-17.5+4]) rotate([0,0,0]) rotate([0,0,0]) cube([145,2,6]);
-		color("black") translate([-5,-7,-17.5+4]) rotate([0,0,0]) rotate([0,0,0]) cube([145,2,6]);
-		translate([131,0,-11-4]) rotate([0,0,0]) rotate([0,0,0]) GT2_16_Idler(3);
-		//translate([131,0,-20]) rotate([0,0,0]) rotate([0,0,0]) cylinder(d=3,h=50,$fn=16);
-}
+		translate([42,60,minZ+45]) rotate([90,0,0]) rotate([0,0,90]) 
+		{
+			if( partIndex==-1 )
+			{
+				color("GREEN") translate([0,0,2]) Nema17_shaft24_Stepper(NemaSize=NemaLengthShort);
+			}
+			
+			if( partIndex==-1 || partIndex==1 )
+			{
+				difference()
+				{
+					union()
+					{
+						color("blue") translate([-21,-31-3,-2]) cube([42,13,25]);
+						color("blue") translate([-21,-21,-2]) cube([42,42,5]);
+					}
+					translate([0,0,3]) rotate([180,0,0]) cylinder(d=24,h=20);
+					color("GREEN") translate([0,0,2]) Nema17_shaft24_Stepper(NemaSize=NemaLengthShort,1);
+					translate([-30,-27,3]) rotate([0,90,0]) cylinder(d=3,h=60,$fn=12);
+					translate([-30,-27,13+5]) rotate([0,90,0]) cylinder(d=3,h=60,$fn=12);
+					translate([16,-27,3]) rotate([0,90,0]) cylinder(d=7.5,h=60,$fn=6);
+					translate([16,-27,13+5]) rotate([0,90,0]) cylinder(d=7.5,h=60,$fn=6);
+				}
+			}
+
+			if( partIndex==-1 || partIndex==2 )
+			{
+				difference()
+				{
+					union()
+					{
+						color("green") translate([-21,-31-3,-15]) cube([30,23,10]);
+						//color("green") translate([-21,-31-3,-15]) rotate(cube([42,23,10]);
+					}
+					translate([-30,-30,-15+5]) rotate([0,90,0]) cylinder(d=3,h=60,$fn=12);
+					translate([-30,-11-4,-15+5]) rotate([0,90,0]) cylinder(d=3,h=60,$fn=12);
+	
+					translate([-30,-11-4-7.5,-15+2]) rotate([0,90,0]) rotate([0,0,30]) cylinder(d=9,h=60,$fn=6);
+
+					translate([6,-30,-15+5]) rotate([0,90,0]) cylinder(d=7,h=60,$fn=6);
+					translate([6,-11-4,-15+5]) rotate([0,90,0]) cylinder(d=7,h=60,$fn=6);
+				}
+			}
+
+			if( partIndex==-1 || partIndex==3 )
+			{
+				difference()
+				{
+
+					color("magenta") union()
+					{
+						translate([-21,-31-3,-15-5]) cube([10,23,5]);
+						//color("green") translate([-21,-31-3,-15]) rotate(cube([42,23,10]);
+						translate([-21,-11-4-7.5,-15+2]) rotate([0,90,0]) rotate([0,0,30]) cylinder(d=8.5,h=10,$fn=6);
+					}
+					translate([-30,-11-4-7.5,-15+2]) rotate([0,90,0]) rotate([0,0,30]) cylinder(d=2.5,h=60,$fn=32);
+					//#translate([-14,-11-4-7.5,-15+2]) rotate([0,0,0]) rotate([0,0,0]) cylinder(d=3,h=60,$fn=32);
+					translate([-5-2,-14,-65]) rotate([0,180,90]) EndSwitchBody20x11(1);
+				}
+			}
+
+			if( partIndex==-1 )
+			{
+			translate([-5-2,-14,-20]) rotate([0,180,90]) EndSwitchBody20x11(0);
+
+
+			translate([0,0,-6+5.5]) rotate([0,-180,0]) rotate([0,0,0]) GT2_16_Pulley();
+			color("black") translate([-5,5,-17.5+5]) rotate([0,0,0]) rotate([0,0,0]) cube([155,2,6]);
+			color("black") translate([-5,-7,-17.5+5]) rotate([0,0,0]) rotate([0,0,0]) cube([155,2,6]);
+			color("orange") translate([-minZ-50+1,0,-11-3]) rotate([0,0,0]) rotate([0,0,0]) GT2_16_Idler(3);
+			//translate([131,0,-20]) rotate([0,0,0]) rotate([0,0,0]) cylinder(d=3,h=50,$fn=16);
+			}
+		}	
 //translate([0,55,-120]) rotate([0,0,0]) cylinder(d=8,h=100);
+	}
 }
 
-color("blue") translate([0,-10,-180]) cylinder(d=3,h=190);
-color("green") translate([0,80,-200+50]) cylinder(d=3,h=100);
+ZStepperMount(3);
+
+color("blue") translate([0,-10,minZ]) cylinder(d=3,h=190);
+color("green") translate([0,80,minZ+50]) cylinder(d=3,h=100);
 
 //translate([-15,35,-110]) mirror([0,1,0]) rotate([0,90,0]) rotate([0,0,0]) RAMPS();
 
-translate([-0,50,-100]) mirror([0,1,0]) rotate([90,0,180]) RAMPS();
+//translate([-0,45,-100]) mirror([0,1,0]) rotate([90,0,180]) RAMPS();
 
 zRodsX = 35;
 
@@ -1098,26 +1187,26 @@ translate([-zRodsX,55,-175]) rotate([90,0,0]) SCS6UU();
 }
 
 
-translate([ArmBXReal-3,100,-180+2])rotate([0,0,0]) 
+translate([ArmBXReal-3,100,minZ+2])rotate([0,0,0]) 
 {
 	ZPlatformHinge();
 	color("black") translate([7,5,25]) rotate([0,0,0]) dimensions(9, DIM_LINE_WIDTH/2, height=DIM_HEIGHT, loc=DIM_OUTSIDE);
 	color("black") translate([7,5,25+3]) rotate([0,0,-90]) dimensions(100+6, DIM_LINE_WIDTH/2, height=DIM_HEIGHT, loc=DIM_OUTSIDE);
 }
 
-translate([ArmAXReal-9,94,-180+2]) rotate([0,0,-90])
+translate([ArmAXReal-9,94,minZ+2]) rotate([0,0,-90])
 {
 	ZPlatformHinge();
 	color("black") translate([7,5,25]) rotate([0,0,0]) dimensions(100-10-2, DIM_LINE_WIDTH/2, height=DIM_HEIGHT, loc=DIM_OUTSIDE);
 	color("black") translate([7,0-2,25]) rotate([0,0,90]) dimensions(7, DIM_LINE_WIDTH/2, height=DIM_HEIGHT, loc=DIM_LEFT);
 }
-translate([78-2,80-2,-180+2])
+translate([78-2,80-2,minZ+2])
 {
 	color("black") translate([-20,-80+1,5]) rotate([0,0,90]) dimensions(90-10, DIM_LINE_WIDTH/2, height=DIM_HEIGHT, loc=DIM_OUTSIDE);
 	color("grey") rotate([0,0,90]) LProfileWithDimensions(10,20,2,154-2);
 color("black") translate([-145,0,25]) rotate([0,0,90]) dimensions(9, DIM_LINE_WIDTH/2, height=DIM_HEIGHT, loc=DIM_OUTSIDE);
 }
-translate([ArmAXReal-8-2-3,-1,-180])
+translate([ArmAXReal-8-2-3,-1,minZ])
 {
 	LProfileWithDimensions(30,30,2,202);
 	color("black") translate([0,4,3]) rotate([0,0,0]) dimensions(7, DIM_LINE_WIDTH/2, height=DIM_HEIGHT, loc=DIM_OUTSIDE);
@@ -1125,7 +1214,7 @@ translate([ArmAXReal-8-2-3,-1,-180])
 	color("black") translate([19,4-4,3]) rotate([0,0,90]) dimensions(4, DIM_LINE_WIDTH/2, height=DIM_HEIGHT, loc=DIM_OUTSIDE);
 	color("black") translate([7,4-4,-3]) rotate([90,0,90]) dimensions(202-6, DIM_LINE_WIDTH/2, height=DIM_HEIGHT, loc=DIM_OUTSIDE);
 }
-translate([ArmBXReal+8+2+3,-1,-180])
+translate([ArmBXReal+8+2+3,-1,minZ])
 {
 	mirror([1,0,0]) LProfileWithDimensions(30,30,2,202);
 }
@@ -1136,11 +1225,51 @@ translate([ArmBXReal+8+2+3,-1,-180])
 //translate([ArmBXReal-15,0,-180]) cube([30,94,93]);
 
 // z platform base
+module ZPlatformHolder(partIndex)
+{
+	translate([20,53,minZ+24]) 
+	{
+		difference()
+		{
+			union()
+			{
+				if( partIndex==-1 || partIndex==1)
+				{
+					translate([0,0,12])  cubeRoundedXY([45,22,10],r=4);
+				}
+				if( partIndex==-1 || partIndex==2)
+				{
+					translate([0,11,9])  cube([45,4,3]);
+					translate([0,11,9-3])  cube([45,14,3]);
+				}
+				if( partIndex==-1 || partIndex==3)
+				{
+					color("blue") translate([0,0,12+20])  cubeRoundedXY([37,14,6],r=4);
+				}
+			}
+			translate([-75-20,68-53,0]) 
+			{
+				translate([100,4,3]) rotate([0,0,0]) cylinder(d=3,h=20,$fn=32);
+				translate([110,4,3]) rotate([0,0,0]) cylinder(d=3,h=20,$fn=32);
+				translate([125,4,3]) rotate([0,0,0]) cylinder(d=3,h=20,$fn=32);
+				translate([135,4,3]) rotate([0,0,0]) cylinder(d=3,h=20,$fn=32);
+			}
+			translate([15,2.5,0])  cube([2,8,45]);
+			translate([15-4,2.5,0])  cube([2,8,45]);
+			translate([15-8,2.5,0])  cube([2,8,45]);
+			translate([14+11,2.5,0])  cube([5,8,45]);
+			translate([22.5,14,3]) rotate([90,0,0]) cylinder(d=15,h=20);
+			translate([4,6.5,3]) cylinder(d=3,h=40,$fn=12);
+			translate([4+29,6.5,3]) cylinder(d=3,h=40,$fn=12);
+		}
+	}
+}
+ZPlatformHolder(-1);
 
-color("grey") translate([-60,75,-155+10]) cube([120,110,2]);
 
-translate([-75,68,-157]) 
-//translate([-75,70,-54]) 
+
+
+translate([-75,68,minZ+23]) 
 {
 	color("black") translate([0,60,3]) rotate([0,0,0]) dimensions(150, DIM_LINE_WIDTH/2, height=DIM_HEIGHT, loc=DIM_OUTSIDE);
 	color("black") translate([75,0,3]) rotate([0,0,90]) dimensions(120, DIM_LINE_WIDTH/2, height=DIM_HEIGHT, loc=DIM_RIGHT);
@@ -1150,6 +1279,33 @@ translate([-75,68,-157])
 
 	color("black") translate([12,0,3]) rotate([0,0,90]) dimensions(19, DIM_LINE_WIDTH/2, height=DIM_HEIGHT, loc=DIM_OUTSIDE);
 	color("black") translate([0,25,3]) rotate([0,0,0]) dimensions(9-3, DIM_LINE_WIDTH/2, height=DIM_HEIGHT, loc=DIM_CENTER);
-	color([1,0,1,0.2]) translate([0,0,0]) cube([150,120,2]);
+	
+		translate([135-5,10-3+5,3]) rotate([0,0,0]) cylinder(d=3,h=30,$fn=32);
+		translate([135-5,10-3+5+100,3]) rotate([0,0,0]) cylinder(d=3,h=30,$fn=32);
+		translate([15+5,10-3+5+100,3]) rotate([0,0,0]) cylinder(d=3,h=30,$fn=32);
+		translate([15+5,10-3+5,3]) rotate([0,0,0]) cylinder(d=3,h=30,$fn=32);
+
+		#translate([100,4,3]) rotate([0,0,0]) cylinder(d=3,h=20,$fn=32);
+		#translate([110,4,3]) rotate([0,0,0]) cylinder(d=3,h=20,$fn=32);
+		#translate([125,4,3]) rotate([0,0,0]) cylinder(d=3,h=20,$fn=32);
+		#translate([135,4,3]) rotate([0,0,0]) cylinder(d=3,h=20,$fn=32);
+
+	color("black") translate([0,4,10]) rotate([0,0,0]) dimensions(100, DIM_LINE_WIDTH/2, height=DIM_HEIGHT, loc=DIM_CENTER);
+	color("black") translate([100,4,10]) rotate([0,0,0]) dimensions(10, DIM_LINE_WIDTH/2, height=DIM_HEIGHT, loc=DIM_CENTER);
+	color("black") translate([110,4,10]) rotate([0,0,0]) dimensions(15, DIM_LINE_WIDTH/2, height=DIM_HEIGHT, loc=DIM_CENTER);
+	color("black") translate([125,4,10]) rotate([0,0,0]) dimensions(10, DIM_LINE_WIDTH/2, height=DIM_HEIGHT, loc=DIM_CENTER);
+
+	color("black") translate([0,10-3+5,25]) rotate([0,0,0]) dimensions(135-5, DIM_LINE_WIDTH/2, height=DIM_HEIGHT, loc=DIM_CENTER);
+	color("black") translate([0,10-3+5+100,25]) rotate([0,0,0]) dimensions(135-5, DIM_LINE_WIDTH/2, height=DIM_HEIGHT, loc=DIM_CENTER);
+	
+	color("black") translate([0,10-3+5+100-5,25]) rotate([0,0,0]) dimensions(20, DIM_LINE_WIDTH/2, height=DIM_HEIGHT, loc=DIM_LEFT);
+	color("black") translate([0,10-3+5-5,25]) rotate([0,0,0]) dimensions(20, DIM_LINE_WIDTH/2, height=DIM_HEIGHT, loc=DIM_LEFT);
+
+	color("black") translate([20,0,25]) rotate([0,0,90]) dimensions(12, DIM_LINE_WIDTH/2, height=DIM_HEIGHT, loc=DIM_LEFT);
+	color("black") translate([20,0,25]) rotate([0,0,90]) dimensions(12+100, DIM_LINE_WIDTH/2, height=DIM_HEIGHT, loc=DIM_CENTER);
+
+	color([1,0,1,0.2]) translate([0,0,10]) cube([150,120,3]);
 }
+
+color([0.5,0.5,0.5,0.5]) translate([-60,75,minZ+45]) cube([120,110,2]);
 
