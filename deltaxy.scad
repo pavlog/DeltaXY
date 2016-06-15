@@ -1055,7 +1055,7 @@ mirror() IdlerStepper(-1);
 minZ = -200;
 module ZStepperMount(partIndex)
 {
-	!translate([0,-10,-20])
+	translate([0,-10,-20])
 	{
 		translate([42,60,minZ+45]) rotate([90,0,0]) rotate([0,0,90]) 
 		{
@@ -1134,7 +1134,7 @@ module ZStepperMount(partIndex)
 	}
 }
 
-ZStepperMount(3);
+ZStepperMount(-1);
 
 color("blue") translate([0,-10,minZ]) cylinder(d=3,h=190);
 color("green") translate([0,80,minZ+50]) cylinder(d=3,h=100);
@@ -1246,28 +1246,33 @@ module ZPlatformHolder(partIndex)
 				{
 					color("blue") translate([0,0,12+20])  cubeRoundedXY([37,14,6],r=4);
 				}
+				if( partIndex==-1 || partIndex==4)
+				{
+					color("green") translate([0,7+4,12])  cubeRoundedXY([45,11,2],r=4,corners=[0,1,1,0]);
+				}
 			}
 			translate([-75-20,68-53,0]) 
 			{
-				translate([100,4,3]) rotate([0,0,0]) cylinder(d=3,h=20,$fn=32);
-				translate([110,4,3]) rotate([0,0,0]) cylinder(d=3,h=20,$fn=32);
-				translate([125,4,3]) rotate([0,0,0]) cylinder(d=3,h=20,$fn=32);
-				translate([135,4,3]) rotate([0,0,0]) cylinder(d=3,h=20,$fn=32);
+				translate([100,4,3]) rotate([0,0,0]) cylinder(d=3,h=60,$fn=32);
+				translate([110,4,3]) rotate([0,0,0]) cylinder(d=3,h=60,$fn=32);
+				translate([125,4,3]) rotate([0,0,0]) cylinder(d=3,h=60,$fn=32);
+				translate([135,4,3]) rotate([0,0,0]) cylinder(d=3,h=60,$fn=32);
 			}
 			translate([15,2.5,0])  cube([2,8,45]);
 			translate([15-4,2.5,0])  cube([2,8,45]);
 			translate([15-8,2.5,0])  cube([2,8,45]);
 			translate([14+11,2.5,0])  cube([5,8,45]);
 			translate([22.5,14,3]) rotate([90,0,0]) cylinder(d=15,h=20);
-			translate([4,6.5,3]) cylinder(d=3,h=40,$fn=12);
-			translate([4+29,6.5,3]) cylinder(d=3,h=40,$fn=12);
+			translate([4,6.5,3]) cylinder(d=3,h=60,$fn=12);
+			translate([4+29,6.5,3]) cylinder(d=3,h=60,$fn=12);
 		}
 	}
 }
 ZPlatformHolder(-1);
 
 
-
+union()
+{
 
 translate([-75,68,minZ+23]) 
 {
@@ -1285,10 +1290,10 @@ translate([-75,68,minZ+23])
 		translate([15+5,10-3+5+100,3]) rotate([0,0,0]) cylinder(d=3,h=30,$fn=32);
 		translate([15+5,10-3+5,3]) rotate([0,0,0]) cylinder(d=3,h=30,$fn=32);
 
-		#translate([100,4,3]) rotate([0,0,0]) cylinder(d=3,h=20,$fn=32);
-		#translate([110,4,3]) rotate([0,0,0]) cylinder(d=3,h=20,$fn=32);
-		#translate([125,4,3]) rotate([0,0,0]) cylinder(d=3,h=20,$fn=32);
-		#translate([135,4,3]) rotate([0,0,0]) cylinder(d=3,h=20,$fn=32);
+		translate([100,4,3]) rotate([0,0,0]) cylinder(d=3,h=20,$fn=32);
+		translate([110,4,3]) rotate([0,0,0]) cylinder(d=3,h=20,$fn=32);
+		translate([125,4,3]) rotate([0,0,0]) cylinder(d=3,h=20,$fn=32);
+		translate([135,4,3]) rotate([0,0,0]) cylinder(d=3,h=20,$fn=32);
 
 	color("black") translate([0,4,10]) rotate([0,0,0]) dimensions(100, DIM_LINE_WIDTH/2, height=DIM_HEIGHT, loc=DIM_CENTER);
 	color("black") translate([100,4,10]) rotate([0,0,0]) dimensions(10, DIM_LINE_WIDTH/2, height=DIM_HEIGHT, loc=DIM_CENTER);
@@ -1308,4 +1313,4 @@ translate([-75,68,minZ+23])
 }
 
 color([0.5,0.5,0.5,0.5]) translate([-60,75,minZ+45]) cube([120,110,2]);
-
+}
