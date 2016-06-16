@@ -26,7 +26,7 @@ animY = abs(sin($t*180))*100;
 animX = cos($t*180*4)*50;
 
 animX = 0;
-animY = 85;//85;
+animY = 0;//85;
 // 85 seems to be max
 //echo(animY);
 echo(animX);
